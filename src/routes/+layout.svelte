@@ -3,7 +3,7 @@
     import TabBar from '@smui/tab-bar';
     import {page} from "$app/stores";
 
-    import { FirebaseApp } from "sveltefire";
+    import {FirebaseApp, User} from "sveltefire";
 
     import { firestore, auth } from '$lib/firebase';
 
@@ -13,8 +13,7 @@
         {name: 'Workouts', route: '/workouts'},
     ];
     let reloadedPage = tabs.find(tab => tab.route === $page.url.pathname)
-    let active: {name:string, route:string} = reloadedPage ? reloadedPage : auth.currentUser ? tabs[0] : {name:'', route:'/'};
-
+    let active: {name:string, route:string} = reloadedPage ? reloadedPage : tabs[0];
 
 </script>
 
@@ -22,19 +21,21 @@
 
 <div class="center">
     <FirebaseApp {auth} {firestore}>
-        <div class="content">
-            <div>
-                <TabBar tabs={tabs} let:tab bind:active>
-                    <Tab {tab} href={tab.route}>
-                        <Label>{tab.name}</Label>
-                    </Tab>
-                </TabBar>
+        <User let:user>
+            <div class="content">
+                <div>
+                    <TabBar tabs={tabs} let:tab bind:active>
+                        <Tab {tab} href={tab.route}>
+                            <Label>{tab.name}</Label>
+                        </Tab>
+                    </TabBar>
+                </div>
+            <slot />
             </div>
-            <slot />
-        </div>
-        <div slot="signedOut">
-            <slot />
-        </div>
+            <div slot="signedOut">
+                <slot/>
+            </div>
+        </User>
     </FirebaseApp>
 </div>
 

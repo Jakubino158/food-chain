@@ -5,6 +5,7 @@
     import HelperText from "@smui/textfield/helper-text";
     import Textfield from "@smui/textfield";
     import {login, register} from "$lib/firebase.js";
+    import {goto} from "$app/navigation";
 
     let wantsToRegister = false;
 
@@ -21,13 +22,17 @@
     else {
             register(email, password).then(resp => {
                 if (!resp) helperText="something went wrong... try again later"
+                else goto('/welcome');
             })
         }
     }
 
     function handleLogin() {
         //todo may be undefined?
-        login(email!, password!).then(resp => {if (!resp) helperText="wrong credentials"} )
+        login(email!, password!).then(resp => {
+            if (!resp) helperText="wrong credentials"
+            else goto('/welcome');
+        })
     }
 </script>
 

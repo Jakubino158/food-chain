@@ -40,7 +40,7 @@
 		"firebase": "^9.19.1",
 		"sveltefire": "^0.2.3"
 	},
-	"encgines": {
+	"engines": {
 		"node": ">=16.14"
 	}
 }

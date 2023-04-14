@@ -84,11 +84,11 @@
                             <div style="display: flex; justify-content: space-around">
                                 {#each chips as chip}
                                     {#if (d.selected.find(item => item === chip))}
-                                        <IconButton disabled title={chip}>
+                                        <IconButton disabled>
                                             <Icon class="material-icons">star</Icon>
                                         </IconButton>
                                     {:else}
-                                        <IconButton disabled title={chip}>
+                                        <IconButton disabled>
                                             <Icon class="material-icons">star_outline</Icon>
                                         </IconButton>
                                     {/if}

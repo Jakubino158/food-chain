@@ -3,7 +3,7 @@
     import TabBar from '@smui/tab-bar';
     import {page} from "$app/stores";
 
-    import {FirebaseApp, User} from "sveltefire";
+    import {FirebaseApp, User, docStore} from "sveltefire";
 
     import { firestore, auth } from '$lib/firebase';
 

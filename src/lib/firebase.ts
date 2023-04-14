@@ -1,5 +1,5 @@
 import { initializeApp } from 'firebase/app';
-import { getFirestore, addDoc, collection } from 'firebase/firestore';
+import { getFirestore, setDoc, doc } from 'firebase/firestore';
 import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword } from 'firebase/auth';
 
 const firebaseConfig = {
@@ -29,6 +29,6 @@ export function register(email:string, password:string):Promise<boolean> {
     });
 }
 
-export function addUserData(data: {}):Promise<boolean> {
-    return addDoc(collection(firestore, auth.currentUser!.uid), data).then(() => true).catch(() => false);
+export function addUserData(path:string, date:string ,data: {}):Promise<boolean> {
+    return setDoc(doc(firestore, 'users/'+auth.currentUser?.uid+"/"+path+"/"+date), data).then(() => true).catch(() => false);
 }

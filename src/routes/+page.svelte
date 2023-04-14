@@ -28,7 +28,6 @@
     }
 
     function handleLogin() {
-        //todo may be undefined?
         login(email!, password!).then(resp => {
             if (!resp) helperText="wrong credentials"
             else goto('/welcome');

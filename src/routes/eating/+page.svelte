@@ -27,7 +27,7 @@
         remark: ' '
     };
     let listOfPreviousDays: daysData[];
-    const chips = ['breakfast', 'before lunch', 'lunch', 'after lunch', 'dinner'];
+    const chips = ['breakfast', 'elevenses', 'lunch', 'supper', 'dinner'];
     let initSnackbar: Snackbar;
     let saveSnackbar: Snackbar;
 
@@ -54,22 +54,29 @@
         saveSnackbar.open();
     }
 
+    function addRemark(chip:string){
+        let chipRow = day.remark.split("\n").find(row => { return row.startsWith(chip+": ")})
+        if (chipRow) {
+            day.remark = day.remark.replace(chipRow, '').split("\n").filter(empty => empty !== "").join("\n");
+        }
+        else day.remark += day.remark.length === 0 ? chip+": " :"\n"+chip+": "
+    }
+
 </script>
 
 <div>
     <User let:user>
         <div class="form">
             <Set chips={chips} let:chip filter bind:selected={day.selected}>
-                <Chip {chip} touch>
+                <Chip {chip} touch on:click={() => addRemark(chip)}>
                     <Text>{chip}</Text>
                 </Chip>
             </Set>
             <FormField>
-    <!--            todo label -->
                 <span slot="label">How do you feel?</span>
                 <Slider min={0} max={10} step={1} discrete tickMarks bind:value={day.feels} style="width: 100%"></Slider>
             </FormField>
-            <Textfield label="Remarks" bind:value={day.remark}></Textfield>
+            <Textfield input$rows={5} textarea label="Remarks" bind:value={day.remark}></Textfield>
             <Button on:click={() => save()} variant="raised" class="top-margin">
                 <Label>Save</Label>
             </Button>
